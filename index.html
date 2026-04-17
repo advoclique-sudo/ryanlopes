@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryan Lopes Pinto Advocacia — Isenção e Restituição de IR para Aposentados</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --dark: #0D1B2A;
+      --dark-card: #111F33;
+      --dark-border: #1E3A5A;
+      --dark-deep: #060E18;
+      --green: #2E7D32;
+      --green-hover: #256427;
+      --green-light: #E8F5E9;
+      --green-border: #A5D6A7;
+      --white: #FFFFFF;
+      --gray: #F5F5F5;
+      --gray-b: #DEE4EC;
+      --text: #181820;
+      --text-mid: #505A69;
+      --text-light: #B4C8DC;
+      --gold: #C9973A;
+      --gold-soft: #DAB763;
+      --gold-light: rgba(201,151,58,0.13);
+      --red: #BE2626;
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --shadow-sm: 0 2px 8px rgba(0,0,0,0.06);
+      --shadow-md: 0 6px 24px rgba(0,0,0,0.10);
+      --shadow-lg: 0 16px 48px rgba(0,0,0,0.14);
+      --container: 1100px;
+      --pad: 120px;
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; color: var(--text); background: var(--white); overflow-x: hidden; }
+    h1, h2, h3 { font-family: 'Playfair Display', serif; }
+    a { text-decoration: none; color: inherit; }
+
+    .container { max-width: var(--container); margin: 0 auto; }
+    .tag {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 13px; border-radius: 4px;
+      font-size: 12px; font-weight: 600; letter-spacing: 0.4px; text-transform: uppercase;
+    }
+    .tag-gold  { background: var(--gold-light); color: var(--gold); }
+    .tag-green { background: rgba(46,125,50,0.11); color: var(--green); }
+    .tag-dark  { background: rgba(13,27,42,0.08); color: var(--dark); }
+    .tag-red   { background: rgba(190,38,38,0.09); color: var(--red); }
+    .tag-white { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+      font-family: 'Inter', sans-serif; font-weight: 700; font-size: 16px;
+      padding: 18px 38px; border-radius: var(--radius-md); cursor: pointer;
+      border: none; transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+      white-space: nowrap; letter-spacing: 0.2px;
+    }
+    .btn:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
+    .btn:active { transform: translateY(0); }
+    .btn-green { background: var(--green); color: var(--white); }
+    .btn-green:hover { background: var(--green-hover); }
+    .btn-white { background: var(--white); color: var(--dark); }
+    .btn-lg { font-size: 18px; padding: 22px 52px; border-radius: 12px; }
+
+    /* NAVBAR */
+    .navbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,27,42,0.97); backdrop-filter: blur(8px);
+      padding: 0 var(--pad);
+      display: flex; align-items: center; justify-content: space-between;
+      height: 70px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .logo { display: flex; flex-direction: column; gap: 1px; }
+    .logo-name { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--white); }
+    .logo-sub  { font-size: 10px; font-weight: 600; color: var(--gold); letter-spacing: 3.5px; }
+    .navbar-links { display: flex; align-items: center; gap: 24px; }
+    .nav-link { font-size: 14px; color: var(--text-light); transition: color .2s; }
+    .nav-link:hover { color: var(--white); }
+    .navbar-btn { padding: 10px 22px; font-size: 14px; }
+
+    /* HERO */
+    .hero {
+      background: var(--dark);
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 0 var(--pad);
+      position: relative; overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      background:
+        linear-gradient(105deg, rgba(13,27,42,0.97) 48%, rgba(13,27,42,0.7) 100%),
+        url('https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=1400&q=80') center/cover no-repeat;
+    }
+    .hero-inner {
+      position: relative; z-index: 1;
+      display: flex; align-items: center; gap: 70px;
+      max-width: var(--container); width: 100%; margin: 0 auto;
+      padding: 100px 0;
+    }
+    .hero-left { flex: 0 0 570px; display: flex; flex-direction: column; gap: 28px; }
+    .hero-label { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; }
+    .hero-label-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); }
+    .hero-label span { font-size: 12px; font-weight: 600; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+    .hero-title { font-size: 50px; font-weight: 700; color: var(--white); line-height: 1.15; }
+    .hero-title em { font-style: italic; color: var(--gold-soft); }
+    .hero-sub { font-size: 18px; color: var(--text-light); line-height: 1.65; max-width: 520px; }
+    .hero-law { display: flex; align-items: center; gap: 10px; padding: 12px 18px; background: rgba(255,255,255,0.05); border-radius: var(--radius-md); border: 1px solid rgba(255,255,255,0.09); align-self: flex-start; }
+    .hero-law span { font-size: 13px; color: var(--text-light); }
+    .hero-law strong { color: var(--white); }
+    .hero-cta { display: flex; flex-direction: column; gap: 14px; }
+    .hero-trust { display: flex; gap: 24px; flex-wrap: wrap; padding-top: 4px; }
+    .hero-trust span { font-size: 13px; color: rgba(180,200,220,0.8); display: flex; align-items: center; gap: 6px; }
+    .hero-trust span::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); flex-shrink: 0; }
+
+    /* Hero Right */
+    .hero-right { flex: 1; display: flex; flex-direction: column; gap: 16px; position: relative; z-index: 1; }
+    .hero-card {
+      background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: var(--radius-xl); padding: 36px; backdrop-filter: blur(4px);
+    }
+    .hero-card-title { font-family: 'Playfair Display', serif; font-size: 15px; color: var(--gold); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; }
+    .hero-stats { display: flex; flex-direction: column; gap: 14px; }
+    .hero-stat-row { display: flex; align-items: center; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .hero-stat-row:last-child { border-bottom: none; }
+    .hero-stat-label { font-size: 14px; color: var(--text-light); }
+    .hero-stat-val { font-family: 'Playfair Display', serif; font-size: 20px; color: var(--white); }
+    .hero-card-mini {
+      background: var(--green); border-radius: var(--radius-lg); padding: 20px 24px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .hero-card-mini-bar { width: 3px; height: 48px; background: rgba(255,255,255,0.35); border-radius: 2px; flex-shrink: 0; }
+    .hero-card-mini p { font-size: 15px; font-weight: 600; color: var(--white); line-height: 1.5; }
+    .hero-card-mini small { font-size: 12px; color: rgba(255,255,255,0.7); font-weight: 400; }
+
+    /* SECTIONS */
+    section { padding: 88px var(--pad); }
+    section.bg-gray  { background: var(--gray); }
+    section.bg-dark  { background: var(--dark); }
+    section.bg-deep  { background: var(--dark-deep); }
+    .sec-header { text-align: center; display: flex; flex-direction: column; align-items: center; gap: 18px; max-width: 820px; margin: 0 auto; }
+    .sec-title { font-size: 40px; font-weight: 700; line-height: 1.18; }
+    .sec-title.light { color: var(--white); }
+    .sec-sub { font-size: 18px; line-height: 1.65; }
+    .sec-sub.mid   { color: var(--text-mid); }
+    .sec-sub.light { color: var(--text-light); }
+
+    /* LAW BANNER */
+    .law-banner {
+      background: var(--dark); padding: 20px var(--pad);
+      display: flex; align-items: center; justify-content: center; gap: 12px;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .law-banner p { font-size: 14px; color: var(--text-light); text-align: center; }
+    .law-banner strong { color: var(--gold); }
+
+    /* PAIN */
+    .pain-cards { display: flex; gap: 22px; margin-top: 48px; }
+    .pain-card {
+      flex: 1; background: var(--white); border: 1px solid var(--gray-b);
+      border-radius: var(--radius-lg); padding: 28px 26px;
+      display: flex; flex-direction: column; gap: 14px;
+      transition: box-shadow .2s, transform .2s;
+    }
+    .pain-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .pain-num {
+      width: 44px; height: 44px; border-radius: var(--radius-md);
+      background: var(--dark); display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--white); letter-spacing: .5px;
+    }
+    .pain-card h3 { font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; }
+    .pain-card p  { font-size: 14px; color: var(--text-mid); line-height: 1.6; }
+
+    /* RIGHTS */
+    .rights-inner { display: flex; gap: 64px; align-items: flex-start; margin-top: 56px; }
+    .rights-left  { flex: 0 0 460px; display: flex; flex-direction: column; gap: 24px; }
+    .rights-title { font-size: 36px; font-weight: 700; line-height: 1.2; }
+    .alert-box {
+      background: rgba(201,151,58,0.08); border: 1px solid rgba(201,151,58,0.3);
+      border-left: 4px solid var(--gold); border-radius: var(--radius-md); padding: 18px 20px;
+    }
+    .alert-box .at { font-size: 13px; font-weight: 700; color: var(--gold); margin-bottom: 6px; }
+    .alert-box p { font-size: 14px; line-height: 1.6; }
+    .dis-grid { flex: 1; display: flex; flex-direction: column; gap: 9px; }
+    .dis-item {
+      display: flex; align-items: center; gap: 12px;
+      background: var(--white); border: 1px solid var(--green-border);
+      border-radius: var(--radius-sm); padding: 11px 16px;
+      font-size: 14px; font-weight: 500; transition: background .15s;
+    }
+    .dis-item:hover { background: var(--green-light); }
+    .dis-check { color: var(--green); font-weight: 700; font-size: 13px; flex-shrink: 0; }
+
+    /* BENEFITS */
+    .ben-cards { display: flex; gap: 18px; margin-top: 52px; }
+    .ben-card {
+      flex: 1; border-radius: var(--radius-lg); padding: 28px 24px;
+      border: 1px solid var(--dark-border);
+      display: flex; flex-direction: column; gap: 14px;
+    }
+    .ben-card.hl  { background: var(--green); border-color: var(--green); }
+    .ben-card.nm  { background: var(--dark-card); }
+    .ben-num { font-size: 11px; font-weight: 700; color: var(--gold); letter-spacing: 1px; text-transform: uppercase; }
+    .ben-card h3  { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; color: var(--white); }
+    .ben-card p   { font-size: 14px; line-height: 1.6; }
+    .ben-card.hl p { color: rgba(232,245,233,0.88); }
+    .ben-card.nm p { color: var(--text-light); }
+    .impact-box {
+      background: rgba(201,151,58,0.08); border: 1px solid rgba(201,151,58,0.25);
+      border-left: 4px solid var(--gold); border-radius: var(--radius-lg);
+      padding: 26px 32px; margin-top: 48px;
+    }
+    .impact-box p { font-size: 17px; font-weight: 500; color: var(--white); line-height: 1.6; }
+
+    /* ÊXITO / FEE */
+    .exito-section { background: var(--green); padding: 0; }
+    .exito-inner {
+      max-width: var(--container); margin: 0 auto;
+      padding: 56px var(--pad);
+      display: flex; align-items: center; justify-content: space-between; gap: 48px;
+    }
+    .exito-left { display: flex; flex-direction: column; gap: 16px; }
+    .exito-label { font-size: 12px; font-weight: 700; color: rgba(255,255,255,0.7); letter-spacing: 2px; text-transform: uppercase; }
+    .exito-title { font-size: 38px; font-weight: 700; color: var(--white); line-height: 1.18; font-family: 'Playfair Display', serif; }
+    .exito-sub { font-size: 17px; color: rgba(255,255,255,0.85); line-height: 1.6; max-width: 520px; }
+    .exito-right { flex-shrink: 0; }
+
+    /* WHY LAWYER */
+    .wly-inner { display: flex; gap: 72px; align-items: flex-start; }
+    .wly-left  { flex: 0 0 460px; display: flex; flex-direction: column; gap: 24px; }
+    .wly-title { font-size: 38px; font-weight: 700; line-height: 1.2; }
+    .highlight-box {
+      background: rgba(13,27,42,0.05); border: 1px solid var(--gray-b);
+      border-left: 3px solid var(--dark); border-radius: var(--radius-md); padding: 18px 20px;
+      font-size: 15px; font-weight: 500; line-height: 1.6;
+    }
+    .wly-right { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+    .reason-card {
+      display: flex; gap: 16px; align-items: flex-start;
+      background: var(--gray); border: 1px solid var(--gray-b);
+      border-radius: var(--radius-md); padding: 18px 20px;
+      transition: box-shadow .2s;
+    }
+    .reason-card:hover { box-shadow: var(--shadow-sm); }
+    .reason-num {
+      width: 46px; height: 46px; border-radius: var(--radius-md);
+      background: rgba(46,125,50,0.11); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 13px; font-weight: 700; color: var(--green);
+    }
+    .reason-card h4 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; margin-bottom: 4px; }
+    .reason-card p  { font-size: 13px; color: var(--text-mid); line-height: 1.55; }
+
+    /* HOW IT WORKS */
+    .steps { display: flex; gap: 18px; margin-top: 52px; }
+    .step-card {
+      flex: 1; background: var(--dark-card); border: 1px solid var(--dark-border);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 18px;
+      position: relative;
+    }
+    .step-card::before {
+      content: '';
+      position: absolute; top: 0; left: 0; right: 0;
+      height: 3px; background: var(--green); border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    }
+    .step-card:nth-child(4)::before { background: var(--gold); }
+    .step-num-box {
+      width: 48px; height: 48px; border-radius: 50%; background: rgba(255,255,255,0.06);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 17px; font-weight: 700; color: var(--white);
+    }
+    .step-card h3 { font-family: 'Inter', sans-serif; font-size: 16px; font-weight: 700; color: var(--white); }
+    .step-card p  { font-size: 13px; color: var(--text-light); line-height: 1.6; flex: 1; }
+    .step-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: rgba(201,151,58,0.15); border-radius: 6px;
+      padding: 5px 10px; font-size: 11px; font-weight: 700; color: var(--gold);
+      letter-spacing: .5px; text-transform: uppercase; align-self: flex-start;
+    }
+
+    /* LAWYER BIO */
+    .bio-inner { display: flex; gap: 72px; align-items: center; }
+    .bio-photo {
+      flex: 0 0 340px; height: 420px;
+      background: var(--dark-card); border-radius: var(--radius-xl);
+      border: 1px solid var(--dark-border);
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; position: relative;
+    }
+    .bio-photo-placeholder {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      opacity: 0.25;
+    }
+    .bio-photo-icon { font-size: 80px; }
+    .bio-photo-txt { font-size: 12px; color: var(--text-light); text-align: center; line-height: 1.5; }
+    .bio-right { flex: 1; display: flex; flex-direction: column; gap: 24px; }
+    .bio-name  { font-size: 40px; font-weight: 700; color: var(--white); line-height: 1.1; }
+    .bio-title { font-size: 14px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+    .bio-desc  { font-size: 16px; color: var(--text-light); line-height: 1.7; }
+    .bio-creds { display: flex; flex-direction: column; gap: 10px; }
+    .bio-cred  {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 14px; color: var(--text-light);
+    }
+    .bio-cred::before {
+      content: ''; width: 20px; height: 2px;
+      background: var(--gold); flex-shrink: 0;
+    }
+
+    /* ABOUT */
+    .about-inner { display: flex; gap: 72px; align-items: flex-start; }
+    .about-left  { flex: 0 0 480px; display: flex; flex-direction: column; gap: 24px; }
+    .about-title { font-size: 38px; font-weight: 700; line-height: 1.2; color: var(--white); }
+    .about-right { flex: 1; display: flex; flex-direction: column; gap: 14px; }
+    .value-card {
+      display: flex; gap: 14px; align-items: flex-start;
+      background: var(--dark-card); border: 1px solid var(--dark-border);
+      border-radius: var(--radius-md); padding: 18px 20px;
+    }
+    .value-num {
+      width: 42px; height: 42px; border-radius: var(--radius-md);
+      background: rgba(201,151,58,0.1); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      font-size: 15px; font-weight: 700; color: var(--gold); font-family: 'Playfair Display', serif;
+    }
+    .value-card h4 { font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+    .value-card p  { font-size: 13px; color: var(--text-light); line-height: 1.55; }
+
+    /* SOCIAL PROOF */
+    .testimonials { display: flex; gap: 22px; margin-top: 52px; }
+    .t-card {
+      flex: 1; background: var(--white); border: 1px solid var(--gray-b);
+      border-radius: var(--radius-lg); padding: 28px 24px;
+      display: flex; flex-direction: column; gap: 16px;
+      transition: box-shadow .2s;
+    }
+    .t-card:hover { box-shadow: var(--shadow-md); }
+    .t-stars { color: var(--gold); font-size: 16px; letter-spacing: 2px; }
+    .t-card blockquote { font-family: 'Playfair Display', serif; font-style: italic; font-size: 15px; color: var(--text); line-height: 1.65; flex: 1; }
+    .t-footer { border-top: 1px solid var(--gray-b); padding-top: 14px; }
+    .t-name { font-size: 14px; font-weight: 700; }
+    .t-sub  { font-size: 12px; color: var(--text-mid); margin-top: 2px; }
+    .trust-bar {
+      display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 0;
+      background: var(--dark); margin-top: 48px; border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+    .trust-item {
+      flex: 1; min-width: 180px; padding: 24px 20px; text-align: center;
+      border-right: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column; gap: 4px;
+    }
+    .trust-item:last-child { border-right: none; }
+    .trust-val  { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--white); }
+    .trust-desc { font-size: 13px; color: var(--text-light); }
+
+    /* FINAL CTA */
+    .final-cta {
+      background: var(--dark);
+      padding: 96px var(--pad);
+      position: relative; overflow: hidden;
+    }
+    .final-cta::before {
+      content: ''; position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 80% at 50% 50%, rgba(46,125,50,0.07) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-inner {
+      max-width: 740px; margin: 0 auto;
+      display: flex; flex-direction: column; align-items: center; gap: 32px; text-align: center;
+      position: relative; z-index: 1;
+    }
+    .cta-title { font-size: 48px; color: var(--white); line-height: 1.14; }
+    .cta-title em { font-style: italic; color: var(--gold-soft); }
+    .cta-sub { font-size: 18px; color: var(--text-light); line-height: 1.65; max-width: 620px; }
+    .cta-exito {
+      background: rgba(201,151,58,0.12); border: 1px solid rgba(201,151,58,0.3);
+      border-radius: var(--radius-md); padding: 14px 24px;
+      font-size: 15px; font-weight: 600; color: var(--gold);
+    }
+    .cta-note { font-size: 14px; color: var(--text-light); }
+    .cta-trust { display: flex; gap: 32px; }
+    .cta-trust span { font-size: 13px; color: rgba(180,200,220,0.7); }
+
+    /* FOOTER */
+    footer { background: var(--dark-deep); padding: 52px var(--pad) 36px; }
+    .footer-top {
+      display: flex; gap: 64px; padding-bottom: 40px;
+      border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 28px;
+    }
+    .footer-brand { flex: 0 0 260px; display: flex; flex-direction: column; gap: 10px; }
+    .footer-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); }
+    .footer-oab  { font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 3px; }
+    .footer-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-top: 4px; }
+    .footer-col  { display: flex; flex-direction: column; gap: 12px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; color: var(--white); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+    .footer-col a, .footer-col span { font-size: 14px; color: var(--text-light); display: block; transition: color .2s; }
+    .footer-col a:hover { color: var(--white); }
+    .footer-bot { display: flex; justify-content: space-between; align-items: center; }
+    .footer-bot span { font-size: 12px; color: rgba(180,200,220,0.5); }
+    .footer-links { display: flex; gap: 20px; }
+    .footer-links a { font-size: 12px; color: rgba(180,200,220,0.5); transition: color .2s; }
+    .footer-links a:hover { color: var(--text-light); }
+
+    /* ANIMATIONS */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(24px); } to { opacity:1; transform:translateY(0); } }
+    .hero-left > * { animation: fadeUp .6s ease-out both; }
+    .hero-left > *:nth-child(1) { animation-delay: .05s; }
+    .hero-left > *:nth-child(2) { animation-delay: .15s; }
+    .hero-left > *:nth-child(3) { animation-delay: .25s; }
+    .hero-left > *:nth-child(4) { animation-delay: .32s; }
+    .hero-left > *:nth-child(5) { animation-delay: .40s; }
+    .hero-left > *:nth-child(6) { animation-delay: .48s; }
+    .hero-right { animation: fadeUp .7s .3s ease-out both; }
+
+    /* RESPONSIVE */
+    @media (max-width: 1100px) { :root { --pad: 48px; } }
+    @media (max-width: 900px) {
+      :root { --pad: 24px; }
+      .navbar { padding: 0 24px; }
+      .nav-link { display: none; }
+      .hero-inner { flex-direction: column; gap: 40px; }
+      .hero-left { flex: none; width: 100%; }
+      .hero-title { font-size: 34px; }
+      .hero-right { width: 100%; }
+      .pain-cards, .ben-cards, .steps, .testimonials { flex-direction: column; }
+      .rights-inner, .wly-inner, .bio-inner, .about-inner { flex-direction: column; gap: 40px; }
+      .rights-left, .wly-left, .bio-photo, .about-left { flex: none; width: 100%; }
+      .bio-photo { height: 260px; }
+      .exito-inner { flex-direction: column; gap: 28px; }
+      .sec-title { font-size: 30px; }
+      .cta-title { font-size: 32px; }
+      .cta-trust { flex-direction: column; gap: 12px; }
+      .trust-bar { flex-direction: column; }
+      .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
+      .footer-top { flex-direction: column; gap: 36px; }
+      .footer-bot { flex-direction: column; gap: 14px; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ══ NAVBAR ══ -->
+  <nav class="navbar">
+    <a href="#" class="logo">
+      <span class="logo-name">Ryan Lopes Pinto</span>
+      <span class="logo-sub">Advocacia</span>
+    </a>
+    <div class="navbar-links">
+      <a href="#quem-tem-direito" class="nav-link">Quem tem direito</a>
+      <a href="#como-funciona" class="nav-link">Como funciona</a>
+      <a href="#advogado" class="nav-link">O advogado</a>
+      <a href="https://wa.me/5511918937818" class="btn btn-green navbar-btn" target="_blank">Análise Gratuita</a>
+    </div>
+  </nav>
+
+  <!-- ══ HERO ══ -->
+  <section class="hero" id="inicio">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+      <div class="hero-left">
+        <div class="hero-label">
+          <div class="hero-label-dot"></div>
+          <span>Direito Tributário · Especializado em Isenção de IR</span>
+        </div>
+        <h1 class="hero-title">Isenção e <em>restituição</em> de Imposto de Renda para aposentados com doença grave</h1>
+        <p class="hero-sub">Se você é aposentado ou pensionista com diagnóstico de doença grave, pode estar pagando IR indevidamente — e tem direito a recuperar até 5 anos de valores.</p>
+        <div class="hero-law">
+          <span>Previsto na <strong>Lei nº 7.713/1988</strong> — direito garantido por lei federal</span>
+        </div>
+        <div class="hero-cta">
+          <a href="https://wa.me/5511918937818" class="btn btn-green btn-lg" target="_blank">Quero minha análise gratuita</a>
+        </div>
+        <div class="hero-trust">
+          <span>Análise 100% gratuita</span>
+          <span>Fale direto com o advogado</span>
+          <span>Atendimento online em todo o Brasil</span>
+        </div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-card">
+          <div class="hero-card-title">O que você pode conquistar</div>
+          <div class="hero-stats">
+            <div class="hero-stat-row">
+              <span class="hero-stat-label">Isenção do IR a partir de</span>
+              <span class="hero-stat-val">Hoje</span>
+            </div>
+            <div class="hero-stat-row">
+              <span class="hero-stat-label">Restituição retroativa de até</span>
+              <span class="hero-stat-val">5 anos</span>
+            </div>
+            <div class="hero-stat-row">
+              <span class="hero-stat-label">Você paga honorários</span>
+              <span class="hero-stat-val">Só no êxito</span>
+            </div>
+            <div class="hero-stat-row">
+              <span class="hero-stat-label">Atendimento</span>
+              <span class="hero-stat-val">100% online</span>
+            </div>
+          </div>
+        </div>
+        <div class="hero-card-mini">
+          <div class="hero-card-mini-bar"></div>
+          <div>
+            <p>Você não paga nada agora.<br>Honorários apenas se ganhar.</p>
+            <small>Sem risco financeiro para você.</small>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ LAW BANNER ══ -->
+  <div class="law-banner">
+    <p>A <strong>Lei nº 7.713/1988</strong> garante isenção de IR para aposentados e pensionistas portadores de doenças graves — mas o benefício não é automático. É preciso requerer.</p>
+  </div>
+
+  <!-- ══ DOR ══ -->
+  <section id="problema">
+    <div class="container">
+      <div class="sec-header">
+        <span class="tag tag-red">O problema que ninguém te contou</span>
+        <h2 class="sec-title">Você pode estar perdendo dinheiro todo mês sem saber</h2>
+        <p class="sec-sub mid">Mesmo com diagnóstico confirmado, a maioria dos aposentados continua sendo descontada pelo IR — simplesmente porque não sabe que tem direito à isenção.</p>
+      </div>
+      <div class="pain-cards">
+        <div class="pain-card">
+          <div class="pain-num">01</div>
+          <h3>IR descontado indevidamente</h3>
+          <p>O desconto continua mês a mês mesmo que você já tenha o diagnóstico da doença. O fisco não avisa, não corrige sozinho.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-num">02</div>
+          <h3>Processo burocrático e técnico</h3>
+          <p>O pedido exige documentação específica, enquadramento legal correto e estratégia. Um erro pode resultar em negativa e perda dos valores.</p>
+        </div>
+        <div class="pain-card">
+          <div class="pain-num">03</div>
+          <h3>Prazo para reaver o dinheiro</h3>
+          <p>Você tem até 5 anos para pleitear a devolução do que foi descontado. Cada mês de atraso é dinheiro que não voltará mais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ QUEM TEM DIREITO ══ -->
+  <section class="bg-gray" id="quem-tem-direito">
+    <div class="container">
+      <div class="rights-inner">
+        <div class="rights-left">
+          <span class="tag tag-green">Direito garantido em lei</span>
+          <h2 class="rights-title">Quem pode solicitar a isenção?</h2>
+          <p class="sec-sub mid" style="text-align:left;max-width:none">Aposentados, pensionistas e militares reformados diagnosticados com doenças graves previstas na Lei nº 7.713/88 têm direito à isenção total do IR.</p>
+          <div class="alert-box">
+            <div class="at">Atenção — ponto fundamental</div>
+            <p>Mesmo que a doença esteja controlada, em remissão ou curada, o direito pode persistir. A lei não exige que a moléstia esteja ativa no momento do pedido.</p>
+          </div>
+          <a href="https://wa.me/5511918937818" class="btn btn-green" target="_blank" style="align-self:flex-start">Verificar meu direito agora</a>
+        </div>
+        <div class="dis-grid">
+          <div class="dis-item"><span class="dis-check">✔</span> Neoplasia maligna (câncer)</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Cardiopatia grave</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Doença de Parkinson</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Esclerose múltipla</div>
+          <div class="dis-item"><span class="dis-check">✔</span> HIV / AIDS</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Nefropatia grave</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Hepatopatia grave</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Cegueira</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Tuberculose ativa</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Espondiloartrose anquilosante</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Alienação mental</div>
+          <div class="dis-item"><span class="dis-check">✔</span> Outras moléstias previstas em lei</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BENEFÍCIOS ══ -->
+  <section class="bg-dark" id="beneficios">
+    <div class="container">
+      <div class="sec-header">
+        <span class="tag tag-gold">O que está em jogo</span>
+        <h2 class="sec-title light">Quanto você pode recuperar?</h2>
+        <p class="sec-sub light">Ao reconhecer seu direito, você para de pagar IR imediatamente — e pode reaver tudo o que foi descontado indevidamente nos últimos anos.</p>
+      </div>
+      <div class="ben-cards">
+        <div class="ben-card hl">
+          <div class="ben-num">Benefício I</div>
+          <h3>Isenção total do IR</h3>
+          <p>Você deixa de pagar Imposto de Renda sobre sua aposentadoria ou pensão a partir da data da concessão.</p>
+        </div>
+        <div class="ben-card nm">
+          <div class="ben-num">Benefício II</div>
+          <h3>Restituição de até 5 anos</h3>
+          <p>Recupere os valores descontados indevidamente nos últimos 60 meses, com correção monetária.</p>
+        </div>
+        <div class="ben-card nm">
+          <div class="ben-num">Benefício III</div>
+          <h3>Correção e juros</h3>
+          <p>Os valores a restituir são corrigidos pela SELIC, o que pode representar um acréscimo significativo.</p>
+        </div>
+        <div class="ben-card nm">
+          <div class="ben-num">Benefício IV</div>
+          <h3>Segurança no processo</h3>
+          <p>Com representação jurídica adequada, você evita erros que podem resultar em negativa ou perda de valores.</p>
+        </div>
+      </div>
+      <div class="impact-box">
+        <p>Cada mês que passa sem agir é dinheiro a menos para você. A isenção não é concedida de forma automática — é preciso requerer com a documentação e estratégia corretas.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ÊXITO BANNER ══ -->
+  <div class="exito-section">
+    <div class="exito-inner">
+      <div class="exito-left">
+        <span class="exito-label">Sem risco para você</span>
+        <h2 class="exito-title">Você paga<br>apenas se ganhar.</h2>
+        <p class="exito-sub">Trabalhamos com honorários condicionados ao êxito. Se não conquistarmos seu direito, você não deve nada. Nosso interesse é o mesmo que o seu.</p>
+      </div>
+      <div class="exito-right">
+        <a href="https://wa.me/5511918937818" class="btn btn-white btn-lg" target="_blank">Iniciar análise gratuita</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ POR QUE ADVOGADO ══ -->
+  <section id="advogado-importancia">
+    <div class="container">
+      <div class="wly-inner">
+        <div class="wly-left">
+          <span class="tag tag-dark">Por que não fazer sozinho?</span>
+          <h2 class="wly-title">A atuação jurídica faz toda a diferença</h2>
+          <p class="sec-sub mid" style="text-align:left;max-width:none">Apesar de ser um direito previsto em lei, o processo de isenção exige análise técnica, documentação correta e estratégia jurídica. Erros levam à negativa.</p>
+          <div class="highlight-box">A atuação de um advogado especializado aumenta significativamente as chances de êxito — e garante que nenhum valor seja perdido por erro formal ou estratégia equivocada.</div>
+        </div>
+        <div class="wly-right">
+          <div class="reason-card">
+            <div class="reason-num">01</div>
+            <div><h4>Análise técnica do caso</h4><p>Verificação do diagnóstico, da base tributária e do enquadramento legal para garantir que o pedido seja procedente.</p></div>
+          </div>
+          <div class="reason-card">
+            <div class="reason-num">02</div>
+            <div><h4>Documentação completa</h4><p>Orientação precisa sobre quais documentos reunir, como obtê-los e como apresentá-los ao fisco ou à Justiça.</p></div>
+          </div>
+          <div class="reason-card">
+            <div class="reason-num">03</div>
+            <div><h4>Estratégia: administrativo ou judicial</h4><p>Definição do melhor caminho conforme o caso — evitando desgaste desnecessário e maximizando o resultado.</p></div>
+          </div>
+          <div class="reason-card">
+            <div class="reason-num">04</div>
+            <div><h4>Acompanhamento até o fim</h4><p>Monitoramento completo do processo até a concessão da isenção e, quando cabível, do pagamento da restituição.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ COMO FUNCIONA ══ -->
+  <section class="bg-dark" id="como-funciona">
+    <div class="container">
+      <div class="sec-header">
+        <span class="tag tag-gold">4 etapas simples</span>
+        <h2 class="sec-title light">Como funciona o processo</h2>
+        <p class="sec-sub light">Do primeiro contato até a concessão da isenção — tudo feito de forma online, sigilosa e sem burocracia para você.</p>
+      </div>
+      <div class="steps">
+        <div class="step-card">
+          <div class="step-num-box">01</div>
+          <h3>Contato e análise gratuita</h3>
+          <p>Você nos contacta pelo WhatsApp. Analisamos seu caso sem custo, sem compromisso e de forma totalmente sigilosa.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num-box">02</div>
+          <h3>Avaliação e documentação</h3>
+          <p>Verificamos o diagnóstico, o enquadramento legal e orientamos sobre todos os documentos necessários.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num-box">03</div>
+          <h3>Pedido administrativo ou ação judicial</h3>
+          <p>Iniciamos o processo pelo melhor caminho — administrativo ou judicial — cuidando de todos os trâmites legais.</p>
+        </div>
+        <div class="step-card">
+          <div class="step-num-box">04</div>
+          <h3>Isenção concedida e valores restituídos</h3>
+          <p>Você conquista o direito, para de pagar IR e recebe a devolução do que foi descontado indevidamente.</p>
+          <span class="step-badge">Resultado final</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ BIO DO ADVOGADO ══ -->
+  <section id="advogado">
+    <div class="container">
+      <div class="bio-inner">
+        <div class="bio-photo">
+          <div class="bio-photo-placeholder">
+            <div class="bio-photo-icon" style="font-size:64px;color:rgba(180,200,220,0.3)">&#9608;</div>
+            <div class="bio-photo-txt" style="color:rgba(180,200,220,0.35);font-size:13px;font-family:'Inter',sans-serif">Foto do<br>advogado</div>
+          </div>
+        </div>
+        <div class="bio-right">
+          <span class="tag tag-gold">Quem irá conduzir o seu caso</span>
+          <div class="bio-title">Advogado Especialista</div>
+          <div class="bio-name">Ryan Lopes Pinto</div>
+          <p class="bio-desc">Especialista em direito tributário, com atuação dedicada à defesa dos direitos de aposentados e pensionistas portadores de doenças graves. Cada cliente é atendido diretamente pelo advogado responsável — sem intermediários, sem robôs.</p>
+          <div class="bio-creds">
+            <div class="bio-cred">Direito Tributário · Isenção e Restituição de IR</div>
+            <div class="bio-cred">Atendimento direto com o advogado, 100% online</div>
+            <div class="bio-cred">Atuação em todo o território nacional</div>
+            <div class="bio-cred">Honorários condicionados ao êxito</div>
+          </div>
+          <a href="https://wa.me/5511918937818" class="btn btn-green" target="_blank" style="align-self:flex-start;margin-top:8px">Falar com o Dr. Ryan</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ SOBRE / DIFERENCIAIS ══ -->
+  <section class="bg-dark" id="sobre">
+    <div class="container">
+      <div class="about-inner">
+        <div class="about-left">
+          <span class="tag tag-gold">Por que escolher o nosso escritório</span>
+          <h2 class="about-title">Ryan Lopes Pinto<br>Advocacia</h2>
+          <p class="sec-sub light" style="text-align:left;max-width:none">Atuação especializada em isenção e restituição de IR, com foco total nos direitos dos aposentados e pensionistas. Você fala diretamente com o advogado — não com uma equipe de atendimento.</p>
+        </div>
+        <div class="about-right">
+          <div class="value-card">
+            <div class="value-num">E</div>
+            <div><h4>Especialização exclusiva</h4><p>Foco 100% em isenção de IR para aposentados com doença grave — sem generalismo.</p></div>
+          </div>
+          <div class="value-card">
+            <div class="value-num">A</div>
+            <div><h4>Fale direto com o advogado</h4><p>Sem robôs, sem intermediários. Você conversa diretamente com quem conduzirá seu caso.</p></div>
+          </div>
+          <div class="value-card">
+            <div class="value-num">S</div>
+            <div><h4>Sigilo e segurança total</h4><p>Todas as informações médicas e jurídicas são tratadas com absoluta confidencialidade.</p></div>
+          </div>
+          <div class="value-card">
+            <div class="value-num">R</div>
+            <div><h4>Honorários só no resultado</h4><p>Você só paga se conquistarmos seu direito. Sem adiantamentos, sem surpresas de custo.</p></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROVA SOCIAL ══ -->
+  <section class="bg-gray" id="depoimentos">
+    <div class="container">
+      <div class="sec-header">
+        <span class="tag tag-gold">Depoimentos</span>
+        <h2 class="sec-title">O que dizem os nossos clientes</h2>
+        <p class="sec-sub mid">Pessoas reais que conquistaram a isenção e passaram a receber os valores que eram seus por direito.</p>
+      </div>
+      <div class="testimonials">
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <blockquote>"Tinha câncer de mama e continuava pagando IR normalmente. Com a orientação do Dr. Ryan, consegui a isenção e recuperei valores significativos que sequer sabia que tinham sido descontados."</blockquote>
+          <div class="t-footer">
+            <div class="t-name">Maria S.</div>
+            <div class="t-sub">Aposentada · São Paulo</div>
+          </div>
+        </div>
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <blockquote>"Meu pai tem Parkinson e não sabia do direito à isenção. Em poucos meses, o processo foi concluído e ele parou de pagar IR. O atendimento foi direto, claro e muito humano."</blockquote>
+          <div class="t-footer">
+            <div class="t-name">Carlos M.</div>
+            <div class="t-sub">Filho de pensionista · Minas Gerais</div>
+          </div>
+        </div>
+        <div class="t-card">
+          <div class="t-stars">★★★★★</div>
+          <blockquote>"Processo totalmente online, sem precisar sair de casa. O Dr. Ryan cuidou de tudo com transparência em cada etapa. Hoje estou isenta e recebi a restituição dos últimos anos."</blockquote>
+          <div class="t-footer">
+            <div class="t-name">Ana R.</div>
+            <div class="t-sub">Pensionista · Rio de Janeiro</div>
+          </div>
+        </div>
+      </div>
+      <div class="trust-bar">
+        <div class="trust-item">
+          <div class="trust-val">5 anos</div>
+          <div class="trust-desc">de valores a recuperar</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-val">100%</div>
+          <div class="trust-desc">online, sem sair de casa</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-val">Zero</div>
+          <div class="trust-desc">risco financeiro para você</div>
+        </div>
+        <div class="trust-item">
+          <div class="trust-val">Brasil</div>
+          <div class="trust-desc">atendimento em todo o país</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ CTA FINAL ══ -->
+  <section class="final-cta" id="contato">
+    <div class="cta-inner">
+      <span class="tag tag-gold">Análise gratuita · Sem compromisso</span>
+      <h2 class="cta-title">Descubra agora se<br>você tem <em>direito</em></h2>
+      <p class="cta-sub">Não arrisque perder mais um mês de desconto indevido. Fale agora com o Dr. Ryan, faça sua análise gratuita e saiba exatamente o que você pode recuperar.</p>
+      <div class="cta-exito">Você só paga se ganhar — sem adiantamentos, sem risco.</div>
+      <a href="https://wa.me/5511918937818" class="btn btn-green btn-lg" target="_blank">Falar com o advogado no WhatsApp</a>
+      <span class="cta-note">Atendimento rápido · Sigilo garantido · 100% online</span>
+      <div class="cta-trust">
+        <span>Sigilo total</span>
+        <span>Fale direto com o advogado</span>
+        <span>Resultado ou não paga</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ RODAPÉ ══ -->
+  <footer id="rodape">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <span class="footer-name">Ryan Lopes Pinto</span>
+          <span class="footer-oab">Advocacia</span>
+          <p class="footer-desc">Especialista em isenção e restituição de IR para aposentados e pensionistas portadores de doenças graves.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Contato</h4>
+          <a href="https://wa.me/5511918937818">WhatsApp: (11) 91893-7818</a>
+          <a href="mailto:ryanloped114@gmail.com">ryanloped114@gmail.com</a>
+        </div>
+        <div class="footer-col">
+          <h4>Navegação</h4>
+          <a href="#inicio">Início</a>
+          <a href="#quem-tem-direito">Quem tem direito</a>
+          <a href="#como-funciona">Como funciona</a>
+          <a href="#advogado">O advogado</a>
+          <a href="#contato">Contato</a>
+        </div>
+      </div>
+      <div class="footer-bot">
+        <span>© 2025 Ryan Lopes Pinto Advocacia. Todos os direitos reservados.</span>
+        <div class="footer-links">
+          <a href="#">Política de Privacidade</a>
+          <a href="#">Termos de Uso</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>
