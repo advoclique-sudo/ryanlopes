@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ryan Lopes Pinto Advocacia — Isenção e Restituição de IR para Aposentados</title>
+  <title>Lopes Pinto Advogados — Isenção e Restituição de IR para Aposentados</title>
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,400;1,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -77,9 +77,11 @@
       height: 70px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
     }
-    .logo { display: flex; flex-direction: column; gap: 1px; }
-    .logo-name { font-family: 'Playfair Display', serif; font-size: 21px; color: var(--white); }
-    .logo-sub  { font-size: 10px; font-weight: 600; color: var(--gold); letter-spacing: 3.5px; }
+    .navbar-logo-img {
+      height: 38px;
+      width: auto;
+      opacity: 0.95;
+    }
     .navbar-links { display: flex; align-items: center; gap: 24px; }
     .nav-link { font-size: 14px; color: var(--text-light); transition: color .2s; }
     .nav-link:hover { color: var(--white); }
@@ -290,18 +292,14 @@
     /* LAWYER BIO */
     .bio-inner { display: flex; gap: 72px; align-items: center; }
     .bio-photo {
-      flex: 0 0 340px; height: 420px;
-      background: var(--dark-card); border-radius: var(--radius-xl);
-      border: 1px solid var(--dark-border);
-      display: flex; align-items: center; justify-content: center;
+      flex: 0 0 340px; height: 460px;
+      border-radius: var(--radius-xl);
       overflow: hidden; position: relative;
     }
-    .bio-photo-placeholder {
-      display: flex; flex-direction: column; align-items: center; gap: 12px;
-      opacity: 0.25;
+    .bio-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
     }
-    .bio-photo-icon { font-size: 80px; }
-    .bio-photo-txt { font-size: 12px; color: var(--text-light); text-align: center; line-height: 1.5; }
     .bio-right { flex: 1; display: flex; flex-direction: column; gap: 24px; }
     .bio-name  { font-size: 40px; font-weight: 700; color: var(--white); line-height: 1.1; }
     .bio-title { font-size: 14px; color: var(--gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
@@ -315,6 +313,36 @@
       content: ''; width: 20px; height: 2px;
       background: var(--gold); flex-shrink: 0;
     }
+
+    /* GALLERY */
+    .gallery-section { background: var(--white); padding: 72px var(--pad); }
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-rows: 280px 280px;
+      gap: 12px;
+      margin-top: 48px;
+    }
+    .gallery-item {
+      overflow: hidden; border-radius: var(--radius-lg);
+      position: relative;
+    }
+    .gallery-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .gallery-item:hover img { transform: scale(1.04); }
+    .gallery-item.large {
+      grid-column: span 2;
+    }
+    .gallery-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(13,27,42,0.45) 0%, transparent 55%);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
 
     /* ABOUT */
     .about-inner { display: flex; gap: 72px; align-items: flex-start; }
@@ -398,7 +426,11 @@
       border-bottom: 1px solid rgba(255,255,255,0.07); margin-bottom: 28px;
     }
     .footer-brand { flex: 0 0 260px; display: flex; flex-direction: column; gap: 10px; }
-    .footer-name { font-family: 'Playfair Display', serif; font-size: 22px; color: var(--white); }
+    .footer-logo-img {
+      height: 38px; width: auto;
+      opacity: 0.75;
+      margin-bottom: 4px;
+    }
     .footer-oab  { font-size: 11px; font-weight: 600; color: var(--gold); letter-spacing: 3px; }
     .footer-desc { font-size: 13px; color: var(--text-light); line-height: 1.6; margin-top: 4px; }
     .footer-col  { display: flex; flex-direction: column; gap: 12px; }
@@ -434,8 +466,8 @@
       .hero-right { width: 100%; }
       .pain-cards, .ben-cards, .steps, .testimonials { flex-direction: column; }
       .rights-inner, .wly-inner, .bio-inner, .about-inner { flex-direction: column; gap: 40px; }
-      .rights-left, .wly-left, .bio-photo, .about-left { flex: none; width: 100%; }
-      .bio-photo { height: 260px; }
+      .rights-left, .wly-left, .about-left { flex: none; width: 100%; }
+      .bio-photo { flex: none; width: 100%; height: 360px; }
       .exito-inner { flex-direction: column; gap: 28px; }
       .sec-title { font-size: 30px; }
       .cta-title { font-size: 32px; }
@@ -444,6 +476,18 @@
       .trust-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.07); }
       .footer-top { flex-direction: column; gap: 36px; }
       .footer-bot { flex-direction: column; gap: 14px; text-align: center; }
+      .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 200px 200px 200px;
+      }
+      .gallery-item.large { grid-column: span 2; }
+    }
+    @media (max-width: 600px) {
+      .gallery-grid {
+        grid-template-columns: 1fr;
+        grid-template-rows: auto;
+      }
+      .gallery-item, .gallery-item.large { grid-column: span 1; height: 220px; }
     }
   </style>
 </head>
@@ -451,9 +495,8 @@
 
   <!-- ══ NAVBAR ══ -->
   <nav class="navbar">
-    <a href="#" class="logo">
-      <span class="logo-name">Ryan Lopes Pinto</span>
-      <span class="logo-sub">Advocacia</span>
+    <a href="#" style="display:flex;align-items:center;">
+      <img src="logo.png" alt="Lopes Pinto Advogados" class="navbar-logo-img" />
     </a>
     <div class="navbar-links">
       <a href="#quem-tem-direito" class="nav-link">Quem tem direito</a>
@@ -701,19 +744,16 @@
   </section>
 
   <!-- ══ BIO DO ADVOGADO ══ -->
-  <section id="advogado">
+  <section id="advogado" style="background: var(--dark);">
     <div class="container">
       <div class="bio-inner">
         <div class="bio-photo">
-          <div class="bio-photo-placeholder">
-            <div class="bio-photo-icon" style="font-size:64px;color:rgba(180,200,220,0.3)">&#9608;</div>
-            <div class="bio-photo-txt" style="color:rgba(180,200,220,0.35);font-size:13px;font-family:'Inter',sans-serif">Foto do<br>advogado</div>
-          </div>
+          <img src="b1c3ad36-cc68-40c0-a7b2-c0db18421861.jpg" alt="Dr. Ryan Lopes" />
         </div>
         <div class="bio-right">
           <span class="tag tag-gold">Quem irá conduzir o seu caso</span>
           <div class="bio-title">Advogado Especialista</div>
-          <div class="bio-name">Ryan Lopes Pinto</div>
+          <div class="bio-name">Ryan Lopes</div>
           <p class="bio-desc">Especialista em direito tributário, com atuação dedicada à defesa dos direitos de aposentados e pensionistas portadores de doenças graves. Cada cliente é atendido diretamente pelo advogado responsável — sem intermediários, sem robôs.</p>
           <div class="bio-creds">
             <div class="bio-cred">Direito Tributário · Isenção e Restituição de IR</div>
@@ -727,13 +767,42 @@
     </div>
   </section>
 
+  <!-- ══ GALERIA DO ESCRITÓRIO ══ -->
+  <section class="gallery-section" id="escritorio">
+    <div class="container">
+      <div class="sec-header">
+        <span class="tag tag-dark">Nosso espaço</span>
+        <h2 class="sec-title">O escritório</h2>
+        <p class="sec-sub mid">Um ambiente planejado para oferecer conforto, privacidade e a estrutura que cada caso merece.</p>
+      </div>
+      <div class="gallery-grid">
+        <div class="gallery-item large">
+          <img src="7452f427-630b-4e3b-9086-3a693d3b004b.jpg" alt="Recepção Lopes Pinto Advogados" />
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="8e7dadfb-c3a8-4aba-9742-0376af9e8831.jpg" alt="Sala de reunião" />
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item">
+          <img src="07899a3c-0526-4ba1-84ae-758deaa73ef2.jpg" alt="Área de trabalho" />
+          <div class="gallery-overlay"></div>
+        </div>
+        <div class="gallery-item large">
+          <img src="5751092b-c94c-4d73-a4dc-80e451c114ef.jpg" alt="Gabinete do advogado" />
+          <div class="gallery-overlay"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ══ SOBRE / DIFERENCIAIS ══ -->
   <section class="bg-dark" id="sobre">
     <div class="container">
       <div class="about-inner">
         <div class="about-left">
           <span class="tag tag-gold">Por que escolher o nosso escritório</span>
-          <h2 class="about-title">Ryan Lopes Pinto<br>Advocacia</h2>
+          <h2 class="about-title">Lopes Pinto<br>Advogados</h2>
           <p class="sec-sub light" style="text-align:left;max-width:none">Atuação especializada em isenção e restituição de IR, com foco total nos direitos dos aposentados e pensionistas. Você fala diretamente com o advogado — não com uma equipe de atendimento.</p>
         </div>
         <div class="about-right">
@@ -758,60 +827,6 @@
     </div>
   </section>
 
-  <!-- ══ PROVA SOCIAL ══ -->
-  <section class="bg-gray" id="depoimentos">
-    <div class="container">
-      <div class="sec-header">
-        <span class="tag tag-gold">Depoimentos</span>
-        <h2 class="sec-title">O que dizem os nossos clientes</h2>
-        <p class="sec-sub mid">Pessoas reais que conquistaram a isenção e passaram a receber os valores que eram seus por direito.</p>
-      </div>
-      <div class="testimonials">
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <blockquote>"Tinha câncer de mama e continuava pagando IR normalmente. Com a orientação do Dr. Ryan, consegui a isenção e recuperei valores significativos que sequer sabia que tinham sido descontados."</blockquote>
-          <div class="t-footer">
-            <div class="t-name">Maria S.</div>
-            <div class="t-sub">Aposentada · São Paulo</div>
-          </div>
-        </div>
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <blockquote>"Meu pai tem Parkinson e não sabia do direito à isenção. Em poucos meses, o processo foi concluído e ele parou de pagar IR. O atendimento foi direto, claro e muito humano."</blockquote>
-          <div class="t-footer">
-            <div class="t-name">Carlos M.</div>
-            <div class="t-sub">Filho de pensionista · Minas Gerais</div>
-          </div>
-        </div>
-        <div class="t-card">
-          <div class="t-stars">★★★★★</div>
-          <blockquote>"Processo totalmente online, sem precisar sair de casa. O Dr. Ryan cuidou de tudo com transparência em cada etapa. Hoje estou isenta e recebi a restituição dos últimos anos."</blockquote>
-          <div class="t-footer">
-            <div class="t-name">Ana R.</div>
-            <div class="t-sub">Pensionista · Rio de Janeiro</div>
-          </div>
-        </div>
-      </div>
-      <div class="trust-bar">
-        <div class="trust-item">
-          <div class="trust-val">5 anos</div>
-          <div class="trust-desc">de valores a recuperar</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-val">100%</div>
-          <div class="trust-desc">online, sem sair de casa</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-val">Zero</div>
-          <div class="trust-desc">risco financeiro para você</div>
-        </div>
-        <div class="trust-item">
-          <div class="trust-val">Brasil</div>
-          <div class="trust-desc">atendimento em todo o país</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ══ CTA FINAL ══ -->
   <section class="final-cta" id="contato">
@@ -835,14 +850,14 @@
     <div class="container">
       <div class="footer-top">
         <div class="footer-brand">
-          <span class="footer-name">Ryan Lopes Pinto</span>
+          <img src="logo.png" alt="Lopes Pinto Advogados" class="footer-logo-img" />
           <span class="footer-oab">Advocacia</span>
           <p class="footer-desc">Especialista em isenção e restituição de IR para aposentados e pensionistas portadores de doenças graves.</p>
         </div>
         <div class="footer-col">
           <h4>Contato</h4>
           <a href="https://wa.me/5511918937818">WhatsApp: (11) 91893-7818</a>
-          <a href="mailto:ryanloped114@gmail.com">ryanloped114@gmail.com</a>
+          <a href="mailto:ryan@lopespintoadvogados.com.br">ryan@lopespintoadvogados.com.br</a>
         </div>
         <div class="footer-col">
           <h4>Navegação</h4>
@@ -854,7 +869,7 @@
         </div>
       </div>
       <div class="footer-bot">
-        <span>© 2025 Ryan Lopes Pinto Advocacia. Todos os direitos reservados.</span>
+        <span>© 2025 Lopes Pinto Advogados. Todos os direitos reservados.</span>
         <div class="footer-links">
           <a href="#">Política de Privacidade</a>
           <a href="#">Termos de Uso</a>
